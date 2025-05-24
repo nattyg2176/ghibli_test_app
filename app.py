@@ -5,6 +5,32 @@ import os
 from PIL import Image
 from openai import OpenAI
 
+from supabase import create_client, Client
+
+# Connect to Supabase
+url = st.secrets["SUPABASE_URL"]
+key = st.secrets["SUPABASE_ANON_KEY"]
+supabase: Client = create_client(url, key)
+
+# Login system
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = False
+
+if not st.session_state["authenticated"]:
+    st.title("Login")
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+        try:
+            result = supabase.auth.sign_in_with_password({"email": email, "password": password})
+            st.session_state["authenticated"] = True
+            st.success("✅ Login successful!")
+            st.experimental_rerun()
+        except Exception as e:
+            st.error("Login failed. Check your email or password.")
+    st.stop()
+
 
 # Load API key securely from Streamlit secrets
 api_key = st.secrets["OPENAI_API_KEY"]
