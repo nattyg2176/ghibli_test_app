@@ -1,3 +1,7 @@
 streamlit
 openai
 Pillow
+streamlit
+openai
+Pillow
+supabase-py
