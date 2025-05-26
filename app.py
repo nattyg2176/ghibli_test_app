@@ -39,7 +39,7 @@ if not st.session_state["authenticated"]:
                     "email": new_email,
                     "password": new_password,
                     "options": {
-                        "email_redirect_to": "http://localhost:8501"
+                        "email_redirect_to": "https://nattyg2176-ghibli-test-app-app-n3gfpm.streamlit.app"
                     }
                 })
                 st.success("✅ Account created! Please check your email and confirm before logging in.")
