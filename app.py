@@ -1,5 +1,56 @@
 import streamlit as st
 st.set_page_config(page_title="AI Image Stylizer", layout="centered")
+
+# Dark Mode Toggle - MUCH better solution!
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
+
+# Put the toggle at the top
+col1, col2 = st.columns([6, 1])
+with col2:
+    if st.button("🌙 Dark" if not st.session_state.dark_mode else "☀️ Light"):
+        st.session_state.dark_mode = not st.session_state.dark_mode
+        st.rerun()
+
+# Apply CSS based on dark mode setting
+if st.session_state.dark_mode:
+    st.markdown("""
+        <style>
+        .stApp {
+            background-color: #1a1a1a !important;
+            color: white !important;
+        }
+        
+        .stTextInput input, .stTextArea textarea, .stSelectbox select {
+            background-color: #333 !important;
+            color: white !important;
+            border: 1px solid #555 !important;
+        }
+        
+        .stFileUploader {
+            background-color: #333 !important;
+            color: white !important;
+        }
+        
+        .stButton button {
+            background-color: #444 !important;
+            color: white !important;
+        }
+        
+        h1, h2, h3, p, div {
+            color: white !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+else:
+    st.markdown("""
+        <style>
+        .stApp {
+            background-color: white !important;
+            color: black !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 import base64
 import tempfile
 import os
@@ -8,51 +59,9 @@ from openai import OpenAI
 client = OpenAI()
 from supabase import create_client, Client
 
-# SUPER STRONG dark background fix - this should definitely work!
+# Keep your image styling
 st.markdown("""
     <style>
-    /* Force EVERYTHING to be dark - no exceptions! */
-    * {
-        background-color: #1a1a1a !important;
-        color: white !important;
-    }
-    
-    .stApp {
-        background-color: #1a1a1a !important;
-    }
-    
-    [data-testid="stAppViewContainer"] {
-        background-color: #1a1a1a !important;
-    }
-    
-    .main {
-        background-color: #1a1a1a !important;
-    }
-    
-    .block-container {
-        background-color: #1a1a1a !important;
-    }
-    
-    /* Make input fields dark but readable */
-    .stTextInput input, .stTextArea textarea, .stSelectbox select {
-        background-color: #333 !important;
-        color: white !important;
-        border: 1px solid #555 !important;
-    }
-    
-    /* File uploaders */
-    .stFileUploader {
-        background-color: #333 !important;
-        border: 1px solid #555 !important;
-    }
-    
-    /* Buttons */
-    .stButton button {
-        background-color: #444 !important;
-        color: white !important;
-        border: 1px solid #666 !important;
-    }
-    
     /* Your existing hover effect for images */
     .thumb {
         transition: transform 0.3s ease;
