@@ -8,31 +8,49 @@ from openai import OpenAI
 client = OpenAI()
 from supabase import create_client, Client
 
-# FIXED: Much stronger dark background CSS that targets all Streamlit elements
+# SUPER STRONG dark background fix - this should definitely work!
 st.markdown("""
     <style>
-    /* Make EVERYTHING dark - this is the fix! */
-    .stApp, .main, .block-container, [data-testid="stAppViewContainer"], 
-    [data-testid="stHeader"], [data-testid="stToolbar"], [data-testid="stDecoration"], 
-    [data-testid="stStatusWidget"], .element-container, .stMarkdown, 
-    html, body, div, section {
-        background-color: #0f0f0f !important;
+    /* Force EVERYTHING to be dark - no exceptions! */
+    * {
+        background-color: #1a1a1a !important;
         color: white !important;
     }
     
-    /* Fix input fields and buttons to be dark too */
-    .stTextInput > div > div > input, .stTextArea > div > div > textarea,
-    .stSelectbox > div > div > select, .stFileUploader, .stSlider,
-    .stButton > button {
-        background-color: #2d2d2d !important;
-        color: white !important;
-        border: 1px solid #444 !important;
+    .stApp {
+        background-color: #1a1a1a !important;
     }
     
-    /* Fix dropdowns and other widgets */
-    [data-baseweb="select"] > div, [data-baseweb="popover"] {
-        background-color: #2d2d2d !important;
+    [data-testid="stAppViewContainer"] {
+        background-color: #1a1a1a !important;
+    }
+    
+    .main {
+        background-color: #1a1a1a !important;
+    }
+    
+    .block-container {
+        background-color: #1a1a1a !important;
+    }
+    
+    /* Make input fields dark but readable */
+    .stTextInput input, .stTextArea textarea, .stSelectbox select {
+        background-color: #333 !important;
         color: white !important;
+        border: 1px solid #555 !important;
+    }
+    
+    /* File uploaders */
+    .stFileUploader {
+        background-color: #333 !important;
+        border: 1px solid #555 !important;
+    }
+    
+    /* Buttons */
+    .stButton button {
+        background-color: #444 !important;
+        color: white !important;
+        border: 1px solid #666 !important;
     }
     
     /* Your existing hover effect for images */
