@@ -18,6 +18,7 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+st.markdown("<style>" + open("style.css").read() + "</style>", unsafe_allow_html=True)
 
 # Connect to Supabase
 url = st.secrets["SUPABASE_URL"]

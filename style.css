@@ -1,0 +1,61 @@
+/* style.css */
+
+body {
+    background: radial-gradient(circle at top left, #0f0c29, #302b63, #24243e);
+    color: white;
+}
+
+.block, .stTextInput, .stSelectbox, .stSlider, .stButton {
+    background: #1f2937 !important;
+    border-radius: 12px !important;
+    color: white !important;
+    border: 1px solid #374151 !important;
+}
+
+.stButton > button {
+    background-image: linear-gradient(to right, #25F4EE, #FE2C55);
+    color: white;
+    font-weight: 700;
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    transition: transform 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+}
+
+.stButton > button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 30px rgba(255, 255, 255, 0.3);
+}
+
+h1, h2, h3 {
+    font-weight: 900 !important;
+    color: #25F4EE;
+    font-size: 2.5rem !important;
+    margin-bottom: 1rem;
+}
+
+/* CTA Buttons with Outline */
+.cta-outline {
+    background: transparent;
+    color: #25F4EE;
+    border: 2px solid #25F4EE;
+    font-weight: 600;
+    border-radius: 9999px;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.cta-outline:hover {
+    color: #FE2C55;
+    border-color: #FE2C55;
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: scale(1.03);
+}
+
+/* Text field placeholder style */
+::placeholder {
+    color: #9CA3AF !important;
+    opacity: 0.8;
+}
