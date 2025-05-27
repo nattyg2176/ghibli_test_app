@@ -7,8 +7,35 @@ from PIL import Image
 from openai import OpenAI
 client = OpenAI()
 from supabase import create_client, Client
+
+# FIXED: Much stronger dark background CSS that targets all Streamlit elements
 st.markdown("""
     <style>
+    /* Make EVERYTHING dark - this is the fix! */
+    .stApp, .main, .block-container, [data-testid="stAppViewContainer"], 
+    [data-testid="stHeader"], [data-testid="stToolbar"], [data-testid="stDecoration"], 
+    [data-testid="stStatusWidget"], .element-container, .stMarkdown, 
+    html, body, div, section {
+        background-color: #0f0f0f !important;
+        color: white !important;
+    }
+    
+    /* Fix input fields and buttons to be dark too */
+    .stTextInput > div > div > input, .stTextArea > div > div > textarea,
+    .stSelectbox > div > div > select, .stFileUploader, .stSlider,
+    .stButton > button {
+        background-color: #2d2d2d !important;
+        color: white !important;
+        border: 1px solid #444 !important;
+    }
+    
+    /* Fix dropdowns and other widgets */
+    [data-baseweb="select"] > div, [data-baseweb="popover"] {
+        background-color: #2d2d2d !important;
+        color: white !important;
+    }
+    
+    /* Your existing hover effect for images */
     .thumb {
         transition: transform 0.3s ease;
     }
@@ -16,19 +43,29 @@ st.markdown("""
         transform: scale(1.15);
         cursor: pointer;
     }
+    
+    /* Make sure preview images look good */
+    .preview-img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin: 10px 0;
+    }
     </style>
 """, unsafe_allow_html=True)
-with open("style.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.markdown("""
-    <style>
-        html, body, .main {
-            background-color: #0f0f0f !important;
-            color: white !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# REMOVED: The problematic style.css file loading that was causing conflicts
+# with open("style.css") as f:
+#     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# REMOVED: The duplicate CSS that wasn't working properly
+# st.markdown("""
+#     <style>
+#         html, body, .main {
+#             background-color: #0f0f0f !important;
+#             color: white !important;
+#         }
+#     </style>
+# """, unsafe_allow_html=True)
 
 # Connect to Supabase
 url = st.secrets["SUPABASE_URL"]
