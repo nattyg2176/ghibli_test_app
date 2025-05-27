@@ -20,6 +20,20 @@ st.markdown("""
 """, unsafe_allow_html=True)
 with open("style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+st.markdown("""
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: white;
+        }
+        .stTextInput, .stSelectbox, .stSlider, .stButton > button {
+            background-color: #1f1f1f;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 8px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 
 # Connect to Supabase
